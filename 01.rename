@@ -1,0 +1,31 @@
+cd usrcoin
+# rename coin
+find . -type f -print0 | xargs -0 sed -i 's/bitcoin/newcoin/g'
+find . -type f -print0 | xargs -0 sed -i 's/Bitcoin/Newcoin/g'
+find . -type f -print0 | xargs -0 sed -i 's/BitCoin/Newcoin/g'
+find . -type f -print0 | xargs -0 sed -i 's/BITCOIN/NEWCOIN/g'
+find . -type f -print0 | xargs -0 sed -i 's/BTC/NCN/g'
+find . -type f -print0 | xargs -0 sed -i 's/btc/NCN/g'
+find . -type f -print0 | xargs -0 sed -i 's/Btc/NCN/g'
+
+# rename files
+find . -exec rename 's/bitcoin/newcoin/' {} ";"
+find . -exec rename 's/btc/NCN/' {} ";"
+
+# fix misspellings
+sed -i 's/bitcon/newcoin/' src/qt/locale/newcoin_da.ts
+sed -i 's/bitcion/newcoin/' src/qt/locale/newcoin_ar.ts
+sed -i 's/Bitconi/Newcoin/' src/qt/locale/newcoin_et.ts
+
+# Fix the copyright notices and credits
+find . -type f -print0 | xargs -0 sed -i '/opyright/ s/Newcoin/Bitcoin/' {} ";"
+sed -i 's/newcoin/bitcoin/g' doc/release-notes/*
+sed -i 's/Newcoin/Bitcoin/g' doc/release-notes/*
+
+# Change the port numbers
+find . -type f -print0 | xargs -0 sed -i 's/8332/9443/' {} ";"
+find . -type f -print0 | xargs -0 sed -i 's/8333/9444/' {} ";"
+
+# Use your own artwork
+ls src/qt/res
+
